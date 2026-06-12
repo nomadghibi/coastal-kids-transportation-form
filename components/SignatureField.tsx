@@ -79,11 +79,9 @@ const SignatureField = forwardRef<SignatureFieldHandle, Props>(
           >
             Clear signature
           </button>
-          <p className="text-xs text-gray-500 leading-snug" style={{ fontSize: "10px" }}>
-            By signing above, I acknowledge that this digital signature is legally
-            binding and equivalent to a handwritten signature pursuant to the
-            Electronic Signatures in Global and National Commerce Act (E-SIGN)
-            and the Uniform Electronic Transactions Act (UETA).
+          <p className="text-gray-500 italic" style={{ fontSize: "10px", lineHeight: "1.3" }}>
+            This digital signature is legally binding and equivalent to a
+            handwritten signature under the E-SIGN Act and UETA.
           </p>
         </div>
       </div>
