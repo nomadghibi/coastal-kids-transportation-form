@@ -255,7 +255,18 @@ export default function TransportationForm() {
           <p className="text-xs mb-1 leading-snug">
             Please list any allergies, medical conditions, medications, dietary restrictions, or special instructions:
           </p>
-          <div className="flex gap-3 mb-1">
+          <textarea
+            {...register("medicalNotes")}
+            aria-label="Medical Notes"
+            rows={3}
+            className="form-line-textarea mb-1"
+            style={{
+              background: "repeating-linear-gradient(transparent, transparent 21px, #000 21px, #000 22px)",
+              lineHeight: "22px",
+              paddingTop: "3px",
+            }}
+          />
+          <div className="flex gap-3">
             <FieldRow>
               <Label>Physician Name:</Label>
               <LineInput type="text" grow={false} width="180px" {...register("physicianName")} aria-label="Physician Name" />
@@ -265,17 +276,6 @@ export default function TransportationForm() {
               <LineInput type="tel" grow={false} width="150px" {...register("physicianPhone")} aria-label="Physician Phone" />
             </FieldRow>
           </div>
-          <textarea
-            {...register("medicalNotes")}
-            aria-label="Medical Notes"
-            rows={3}
-            className="form-line-textarea"
-            style={{
-              background: "repeating-linear-gradient(transparent, transparent 21px, #000 21px, #000 22px)",
-              lineHeight: "22px",
-              paddingTop: "3px",
-            }}
-          />
         </section>
 
         <hr className="border-t border-black mb-2" />

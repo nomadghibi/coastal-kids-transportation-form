@@ -204,6 +204,29 @@ export function generatePDF(
   doc.text(medLines, MARGIN, y);
   y += medLines.length * 11 + 4;
 
+  // Medical notes lines first
+  if (data.medicalNotes) {
+    const noteLines = doc.splitTextToSize(data.medicalNotes, CONTENT_W);
+    noteLines.forEach((line: string) => {
+      doc.setFontSize(9);
+      doc.text(line, MARGIN, y);
+      addHRule(doc, y + 2);
+      y += LINE_H;
+    });
+    const remaining = Math.max(0, 4 - noteLines.length);
+    for (let i = 0; i < remaining; i++) {
+      addHRule(doc, y + 2);
+      y += LINE_H;
+    }
+  } else {
+    for (let i = 0; i < 4; i++) {
+      addHRule(doc, y + 2);
+      y += LINE_H;
+    }
+  }
+  y += 4;
+
+  // Physician name / phone below lines
   fieldLine(doc, "Physician Name:", data.physicianName ?? "", MARGIN, y, MARGIN + 230);
   fieldLine(
     doc,
@@ -213,29 +236,7 @@ export function generatePDF(
     y,
     PAGE_W - MARGIN
   );
-  y += FIELD_GAP;
-
-  // Medical notes lines
-  if (data.medicalNotes) {
-    const noteLines = doc.splitTextToSize(data.medicalNotes, CONTENT_W);
-    noteLines.forEach((line: string) => {
-      doc.setFontSize(9);
-      doc.text(line, MARGIN, y);
-      addHRule(doc, y + 2);
-      y += LINE_H;
-    });
-    const remaining = Math.max(0, 5 - noteLines.length);
-    for (let i = 0; i < remaining; i++) {
-      addHRule(doc, y + 2);
-      y += LINE_H;
-    }
-  } else {
-    for (let i = 0; i < 5; i++) {
-      addHRule(doc, y + 2);
-      y += LINE_H;
-    }
-  }
-  y += 6;
+  y += FIELD_GAP + 6;
 
   // ── TRANSPORTATION AGREEMENT ─────────────────────────────────
   sectionHeading("Transportation Agreement");
