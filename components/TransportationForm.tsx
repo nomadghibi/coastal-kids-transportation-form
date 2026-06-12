@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema, defaultValues, type FormValues } from "@/lib/schema";
@@ -50,6 +50,17 @@ export default function TransportationForm() {
   });
 
   const sigRef = useRef<SignatureFieldHandle | null>(null);
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    const update = () => {
+      const vw = window.innerWidth;
+      setScale(Math.min(1, (vw - 16) / 816));
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   useEffect(() => {
     try {
@@ -111,14 +122,25 @@ export default function TransportationForm() {
       </p>
 
       {/* ── Paper form (letter size) ──────────────────────────────── */}
+      {/* Scale wrapper keeps document proportions on small screens */}
+      <div
+        className="mx-auto no-print-scale-wrapper"
+        style={{
+          width: `${816 * scale}px`,
+          height: scale < 1 ? `${1056 * scale}px` : undefined,
+          overflow: "visible",
+        }}
+      >
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="print-page mx-auto bg-white"
+        className="print-page bg-white"
         style={{
           width: "816px",
           minHeight: "1056px",
           padding: "28px 48px 24px",
           boxShadow: "0 2px 16px rgba(0,0,0,0.18)",
+          transformOrigin: "top left",
+          transform: scale < 1 ? `scale(${scale})` : undefined,
         }}
       >
         {/* TITLE */}
@@ -294,6 +316,7 @@ export default function TransportationForm() {
           </div>
         </section>
       </form>
+      </div>
 
       {/* ── Buttons bottom ───────────────────────────────────────── */}
       <div className="no-print flex flex-wrap gap-2 justify-center mt-4 mb-8">
