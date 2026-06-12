@@ -71,13 +71,21 @@ const SignatureField = forwardRef<SignatureFieldHandle, Props>(
             }}
           />
         </div>
-        <button
-          type="button"
-          onClick={() => instanceRef.current?.clear()}
-          className="mt-1 text-xs text-gray-500 underline cursor-pointer"
-        >
-          Clear signature
-        </button>
+        <div className="mt-1 flex flex-wrap items-start gap-3">
+          <button
+            type="button"
+            onClick={() => instanceRef.current?.clear()}
+            className="text-xs text-gray-500 underline cursor-pointer shrink-0"
+          >
+            Clear signature
+          </button>
+          <p className="text-xs text-gray-500 leading-snug" style={{ fontSize: "10px" }}>
+            By signing above, I acknowledge that this digital signature is legally
+            binding and equivalent to a handwritten signature pursuant to the
+            Electronic Signatures in Global and National Commerce Act (E-SIGN)
+            and the Uniform Electronic Transactions Act (UETA).
+          </p>
+        </div>
       </div>
     );
   }
