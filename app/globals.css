@@ -83,8 +83,6 @@ body {
     background: white !important;
     margin: 0;
     padding: 0;
-    height: 11in;
-    overflow: hidden;
   }
 
   .no-print {
@@ -104,15 +102,15 @@ body {
 
   .print-page {
     width: 8.5in !important;
-    height: 11in !important;
     min-height: unset !important;
+    height: auto !important;
     padding: 0.28in 0.5in !important;
     margin: 0 !important;
     box-shadow: none !important;
     border: none !important;
     background: white !important;
     transform: none !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     page-break-after: avoid;
     page-break-inside: avoid;
   }
